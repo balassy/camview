@@ -1,6 +1,7 @@
 {
   "name": "camview",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "An AWS powered, Facebook integrated remote camera viewer application in the browser, written with TypeScript in Angular 4. ",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -9,6 +10,21 @@
     "test": "ng test",
     "lint": "ng lint --format verbose --type-check",
     "e2e": "ng e2e"
+  },
+  "keywords": [
+    "angular",
+    "aws",
+    "facebook",
+    "lambda",
+    "angular-material",
+    "serverless",
+    "tslint",
+    "typescript"
+  ],
+  "author": "György Balássy",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/balassy/camview.git"
   },
   "private": true,
   "dependencies": {
