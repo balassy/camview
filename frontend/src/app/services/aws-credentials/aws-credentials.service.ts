@@ -3,6 +3,7 @@ import * as AWS from 'aws-sdk';
 
 import { AuthService, CurrentUser } from './../auth/auth.service';
 import { ConfigService } from './../config/config.service';
+import { ProgressService } from './../progress/progress.service';
 
 @Injectable()
 export class AwsCredentialsService {
@@ -18,7 +19,9 @@ export class AwsCredentialsService {
     AWS.config.credentials = value;
   }
 
-  constructor(private _authService: AuthService, private _configService: ConfigService) {
+  constructor(private _authService: AuthService,
+              private _configService: ConfigService,
+              private _progressService: ProgressService) {
   }
 
   public init(): void {
@@ -35,11 +38,13 @@ export class AwsCredentialsService {
   }
 
   private _getCredentials(facebookAccessToken: string) {
+    this._progressService.start('Getting your AWS credentials...');
     this._currentCredentials = this._createAuthenticatedCredentials(facebookAccessToken);
     this._currentCredentials.get((err) => {
       if (err) {
         console.error('AwsCredentialsService: Cognito get error:', err);
       }
+      this._progressService.end();
     });
   }
 

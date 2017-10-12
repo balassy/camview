@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { AuthService } from '../../services/auth/auth.service';
+import { ProgressService } from '../../services/progress/progress.service';
 
 @Component({
   selector: 'app-login',
@@ -8,15 +9,18 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public constructor(@Inject(AuthService) private _authService: AuthService) {
+  public constructor(@Inject(AuthService) private _authService: AuthService,
+                     @Inject(ProgressService) private _progressService: ProgressService) {
   }
 
   public ngOnInit(): void {
   }
 
   public onLoginButtonClicked(): void {
+    this._progressService.start('Please log in to Facebook...');
     this._authService.login()
       .then((response) => {
+        this._progressService.end();
         return this._authService.redirectToHome();
       })
       .catch((err) => {

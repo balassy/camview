@@ -14,19 +14,22 @@ import { AwsCredentialsService } from './services/aws-credentials/aws-credential
 import { AwsRequestSignerService } from './services/aws-request-signer/aws-request-signer.service';
 import { ConfigService } from './services/config/config.service';
 import { FacebookClientService } from './services/facebook-client/facebook-client.service';
+import { ProgressService } from './services/progress/progress.service';
 import { UrlParserService } from './services/url-parser/url-parser.service';
 
 import { AppComponent } from './components/app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AwsRequestSignerService,
     ConfigService,
     FacebookClientService,
+    ProgressService,
     UrlParserService
   ],
   bootstrap: [AppComponent]
