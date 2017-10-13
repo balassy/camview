@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { AuthService } from '../../services/auth/auth.service';
 import { ProgressService } from '../../services/progress/progress.service';
@@ -8,12 +8,9 @@ import { ProgressService } from '../../services/progress/progress.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public constructor(@Inject(AuthService) private _authService: AuthService,
                      @Inject(ProgressService) private _progressService: ProgressService) {
-  }
-
-  public ngOnInit(): void {
   }
 
   public onLoginButtonClicked(): void {

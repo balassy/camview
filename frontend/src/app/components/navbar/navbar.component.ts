@@ -10,8 +10,8 @@ import { AuthService, CurrentUser } from '../../services/auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
   public vm: {
-    isLoggedIn: boolean,
-    displayName: string | null
+    isLoggedIn: boolean;
+    displayName: string | null;
   };
 
   private _onCurrentUserChangedSubscription: Subscription;
@@ -25,9 +25,9 @@ export class NavbarComponent implements OnInit {
 
   public onLogoutButtonClicked(): void {
     this._authService.logout()
-      .then((response) => {
-        return this._authService.redirectToLogin();
-      })
+      .then(() =>
+        this._authService.redirectToLogin()
+      )
       .catch((err) => {
         console.error('error', err);
       });
@@ -48,7 +48,7 @@ export class NavbarComponent implements OnInit {
       this.vm = {
         displayName: currentUser.firstName,
         isLoggedIn: true
-      }
+      };
     }
   }
 }

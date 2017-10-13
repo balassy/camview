@@ -12,15 +12,15 @@ export class AwsCredentialsService {
   }
 
   private get _currentCredentials(): AWS.CognitoIdentityCredentials {
-    return AWS.config.credentials as AWS.CognitoIdentityCredentials
+    return AWS.config.credentials as AWS.CognitoIdentityCredentials;
   }
 
   private set _currentCredentials(value: AWS.CognitoIdentityCredentials) {
     AWS.config.credentials = value;
   }
 
-  constructor(private _configService: ConfigService,
-              private _progressService: ProgressService) {
+  public constructor(private _configService: ConfigService,
+                     private _progressService: ProgressService) {
   }
 
   public update(currentUser: CurrentUser | null): Promise<void> {
@@ -48,7 +48,7 @@ export class AwsCredentialsService {
   private _clearCredentials(): Promise<void> {
     if (this._currentCredentials) {
       this._currentCredentials.clearCachedId();
-      this._currentCredentials = this._createUnauthenticatedCredentials()
+      this._currentCredentials = this._createUnauthenticatedCredentials();
     }
 
     return Promise.resolve();
@@ -73,7 +73,7 @@ export class AwsCredentialsService {
     if (facebookAccessToken) {
       options.Logins = {
         'graph.facebook.com': facebookAccessToken
-      }
+      };
     }
     return new AWS.CognitoIdentityCredentials(options);
   }

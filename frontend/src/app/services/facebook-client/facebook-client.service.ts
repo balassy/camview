@@ -7,12 +7,11 @@ import { ApiMethod } from './facebook-client.types';
 
 @Injectable()
 export class FacebookClientService {
-
-  constructor(private _configService: ConfigService,
-              private _facebookService: FacebookService) {
+  public constructor(private _configService: ConfigService,
+                     private _facebookService: FacebookService) {
   }
 
-  public init(): Promise<any> {
+  public init(): Promise<void> {
     const initParams: InitParams = {
       appId: this._configService.facebook.appId,
       xfbml: true,
@@ -31,7 +30,7 @@ export class FacebookClientService {
     return this._facebookService.login(options);
   }
 
-  public logout(): Promise<any> {
+  public logout(): Promise<void> {
     return this._facebookService.logout();
   }
 

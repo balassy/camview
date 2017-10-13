@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { FacebookClientService, LoginResponse, LoginStatus } from '../facebook-client/facebook-client.service';
 import { AwsCredentialsService } from '../aws-credentials/aws-credentials.service';
 
 import { CurrentUser } from './models/current-user';
 export { CurrentUser } from './models/current-user';
-import { FacebookGetProfileResponse } from "./auth.types";
+import { FacebookGetProfileResponse } from './auth.types';
 
 @Injectable()
 export class AuthService {
   private _onCurrentUserChangedSubject: BehaviorSubject<CurrentUser | null> = new BehaviorSubject<CurrentUser | null>(null);
   public readonly onCurrentUserChanged: Observable<CurrentUser | null> = this._onCurrentUserChangedSubject.asObservable();
 
-  public constructor( private _awsCredentialsService: AwsCredentialsService,
-                      private _facebookClientService: FacebookClientService,
-                      private _router: Router) {
+  public constructor(private _awsCredentialsService: AwsCredentialsService,
+                     private _facebookClientService: FacebookClientService,
+                     private _router: Router) {
   }
 
   public login(): Promise<CurrentUser> {
@@ -30,7 +29,7 @@ export class AuthService {
         return this._facebookClientService.api('/me?fields=first_name, name');
       })
       .then((facebookProfile: FacebookGetProfileResponse) => {
-        currentUser = new CurrentUser(facebookProfile.id, facebookProfile.name, facebookProfile.first_name, facebookAccessToken)
+        currentUser = new CurrentUser(facebookProfile.id, facebookProfile.name, facebookProfile.first_name, facebookAccessToken);
         return this._awsCredentialsService.update(currentUser);
       })
       .then(() => {
@@ -40,12 +39,12 @@ export class AuthService {
   }
 
   public logout(): Promise<void> {
-    const newUser = null;
+    const newUser: null = null;
 
     return this._facebookClientService.logout()
-      .then(() => {
-        return this._awsCredentialsService.update(newUser);
-      })
+      .then(() =>
+        this._awsCredentialsService.update(newUser)
+      )
       .then(() => {
         this._notifyCurrentUserChanged(newUser);
       });

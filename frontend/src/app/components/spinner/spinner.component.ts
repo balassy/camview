@@ -9,13 +9,13 @@ import { ProgressState, ProgressStatus } from '../../services/progress/progress.
   styleUrls: ['./spinner.component.css']
 })
 export class SpinnerComponent implements OnInit {
-  public message?: string = "Please wait...";
+  public message?: string = 'Please wait...';
   public show: boolean = false;
 
-  constructor(@Inject(ProgressService) private _progressService: ProgressService) {
+  public constructor(@Inject(ProgressService) private _progressService: ProgressService) {
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this._progressService.onStateChanged.subscribe(this._onProgressStateChanged.bind(this));
   }
 

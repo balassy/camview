@@ -7,7 +7,7 @@ export interface SignerCredentials {
 export interface SignOptions {
   region: string;
   service: string;
-  method: string,
+  method: string;
   host: string;
   path: string;
   port: string;
@@ -17,5 +17,5 @@ export interface SignOptions {
   body: string;
   headers: {
     [key: string]: string;
-  }
+  };
 }

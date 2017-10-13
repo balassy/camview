@@ -9,9 +9,9 @@ import { UrlParserService, ParsedUrl } from './../url-parser/url-parser.service'
 
 @Injectable()
 export class AwsRequestSignerService {
-  public constructor( private _awsCredentialsService: AwsCredentialsService,
-                      private _configService: ConfigService,
-                      private _urlParserService: UrlParserService) {
+  public constructor(private _awsCredentialsService: AwsCredentialsService,
+                     private _configService: ConfigService,
+                     private _urlParserService: UrlParserService) {
   }
 
   public sign(requestOptions: RequestOptionsArgs): void {
@@ -24,7 +24,7 @@ export class AwsRequestSignerService {
       method: 'GET',
       host: parsedUrl.hostname,
       headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       path: parsedUrl.pathname,

@@ -22,6 +22,27 @@
     "restrict-plus-operands": false,
     "strict-boolean-expressions": false,
     "trailing-comma": "never",
-    "variable-name": [true,"check-format", "allow-leading-underscore"]
+    "variable-name": [true,"check-format", "allow-leading-underscore"],
+
+    // These could be fixed if this was not a sample project:
+    "jsdoc-format": false,
+    "comment-format": false,                // In some template generated code.
+    "member-ordering": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+
+    // These must be fixed eventually:
+    "typedef": false,
+    "no-floating-promises": false,          // Must be fixed.
+    "no-submodule-imports": false,          // Required in some places.
+    "no-import-side-effect": false,         // Required in some places.
+    "no-unsafe-any": false,                 // Many false alarms.
+    "no-null-keyword": false,               // Consider using CurrentUser.UnauthenticatedUser instead of null.
+    "no-console": false,                    // Introduce a LoggerService.
+    "no-unnecessary-type-assertion": false, // Investigate every single case.
+    "no-any": false,                        // Investigate every single case.
+    "prefer-function-over-method": false,   // Investigate every single case.
+    "no-empty": false,                      // In some template generated code.
+    "prefer-object-spread": false           // Investigate every single case.
   }
 }
