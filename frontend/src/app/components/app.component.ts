@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AwsCredentialsService } from '../services/aws-credentials/aws-credentials.service';
 import { FacebookClientService } from '../services/facebook-client/facebook-client.service';
 
 @Component({
@@ -8,9 +7,7 @@ import { FacebookClientService } from '../services/facebook-client/facebook-clie
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public constructor(private _facebookClientService: FacebookClientService,
-                     private _awsCredentialsService: AwsCredentialsService) {
+  public constructor(private _facebookClientService: FacebookClientService) {
     this._facebookClientService.init();
-    this._awsCredentialsService.init();
   }
 }

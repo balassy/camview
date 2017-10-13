@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as AWS from 'aws-sdk';
 
-import { AuthService, CurrentUser } from './../auth/auth.service';
+import { CurrentUser } from './../auth/auth.service';
 import { ConfigService } from './../config/config.service';
 import { ProgressService } from './../progress/progress.service';
 
@@ -19,40 +19,39 @@ export class AwsCredentialsService {
     AWS.config.credentials = value;
   }
 
-  constructor(private _authService: AuthService,
-              private _configService: ConfigService,
+  constructor(private _configService: ConfigService,
               private _progressService: ProgressService) {
   }
 
-  public init(): void {
+  public update(currentUser: CurrentUser | null): Promise<void> {
     AWS.config.region = this._configService.aws.region;
-    this._authService.onCurrentUserChanged.subscribe(this._onCurrentUserChanged.bind(this));
+    return currentUser
+      ? this._getCredentials(currentUser.facebookAccessToken)
+      : this._clearCredentials();
   }
 
-  private _onCurrentUserChanged(currentUser: CurrentUser | null) {
-    if (currentUser) {
-      this._getCredentials(currentUser.facebookAccessToken);
-    } else {
-      this._clearCredentials();
-    }
-  }
-
-  private _getCredentials(facebookAccessToken: string) {
-    this._progressService.start('Getting your AWS credentials...');
-    this._currentCredentials = this._createAuthenticatedCredentials(facebookAccessToken);
-    this._currentCredentials.get((err) => {
-      if (err) {
-        console.error('AwsCredentialsService: Cognito get error:', err);
-      }
-      this._progressService.end();
+  private _getCredentials(facebookAccessToken: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this._progressService.start('Getting your AWS credentials...');
+      this._currentCredentials = this._createAuthenticatedCredentials(facebookAccessToken);
+      this._currentCredentials.get((err) => {
+        if (err) {
+          console.error('AwsCredentialsService: Cognito get error:', err);
+          reject(err);
+        }
+        this._progressService.end();
+        resolve();
+      });
     });
   }
 
-  private _clearCredentials() {
+  private _clearCredentials(): Promise<void> {
     if (this._currentCredentials) {
       this._currentCredentials.clearCachedId();
       this._currentCredentials = this._createUnauthenticatedCredentials()
     }
+
+    return Promise.resolve();
   }
 
   private _createAuthenticatedCredentials(facebookAccessToken: string): AWS.CognitoIdentityCredentials {
