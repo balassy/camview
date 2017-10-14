@@ -1,11 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { FacebookService } from 'ngx-facebook';
 
+import { ConfigService } from './../config/config.service';
 import { FacebookClientService } from './facebook-client.service';
 
 describe('FacebookClientService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FacebookClientService]
+      providers: [
+        ConfigService,
+        FacebookClientService,
+        FacebookService,
+      ]
     });
   });
 
