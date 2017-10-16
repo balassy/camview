@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { mock, instance, reset, verify } from 'ts-mockito';
 import { MockComponent } from 'ng2-mock-component';
+import { instance, mock, reset, verify } from 'ts-mockito';
 
 import { AppComponent } from './app.component';
 import { FacebookClientService } from './../services/facebook-client/facebook-client.service';
