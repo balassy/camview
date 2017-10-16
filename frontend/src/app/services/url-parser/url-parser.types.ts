@@ -6,7 +6,7 @@ export interface ParsedUrl {
   password: string;
   host: string;
   hostname: string;
-  port: number;
+  port: string;
   pathname: string;
   query: {
     [key: string]: string;
@@ -14,6 +14,4 @@ export interface ParsedUrl {
   hash: string;
   href: string;
   origin: string;
-  set(key: string, value: string): void;
-  toString(): string;
 }

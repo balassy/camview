@@ -27,4 +27,5 @@ _Still so much things to do..._
   - https://sdk.amazonaws.com/builder/js/
 - How to parse a URL in Angular 4
   - url-parse service: https://gist.github.com/balassy/f504720eddab30f6f08652770651762b
-  
+- Debug DI errors in tests: 
+  - ng test -sm=false
