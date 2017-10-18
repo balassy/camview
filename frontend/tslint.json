@@ -1,5 +1,8 @@
 {
-  "extends": "tslint:all",
+  "extends": [
+    "tslint:all",
+    "rxjs-tslint-rules"
+  ],
   "rulesDirectory": [
     // "node_modules/codelyzer"
   ],
@@ -21,8 +24,18 @@
     "quotemark": [true, "single"],
     "restrict-plus-operands": false,
     "strict-boolean-expressions": false,
-    "trailing-comma": "never",
+    "trailing-comma": false,
     "variable-name": [true,"check-format", "allow-leading-underscore"],
+
+    // Rules from the rxjs-tslint-rules package (https://cartant.github.io/rxjs-tslint-rules/):
+    "rxjs-add": {
+      "options": [{
+        "allowElsewhere": false,
+        "allowUnused": true,                // Required, because some RxJS functions are used only in .spec.ts files.
+        "file": "./src/rxjs.imports.ts"
+      }],
+      "severity": "error"
+    },
 
     // These could be fixed if this was not a sample project:
     "jsdoc-format": false,

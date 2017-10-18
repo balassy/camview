@@ -6,7 +6,7 @@ import { ProgressState, ProgressStatus } from './progress.types';
 
 const chance: Chance.Chance = new Chance();
 
-fdescribe('ProgressService', () => {
+describe('ProgressService', () => {
   let service: ProgressService;
 
   beforeEach(() => {

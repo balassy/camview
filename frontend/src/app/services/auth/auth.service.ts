@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 import { FacebookClientService, LoginResponse, LoginStatus } from '../facebook-client/facebook-client.service';
 import { AwsCredentialsService } from '../aws-credentials/aws-credentials.service';

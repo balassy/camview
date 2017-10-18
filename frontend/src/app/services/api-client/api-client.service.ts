@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, Response } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
 
 import { GetHealthCheckDetailedResult, GetHealthCheckResult } from './api-client.types';
 import { AwsRequestSignerService } from './../aws-request-signer/aws-request-signer.service';

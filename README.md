@@ -29,3 +29,6 @@ _Still so much things to do..._
   - url-parse service: https://gist.github.com/balassy/f504720eddab30f6f08652770651762b
 - Debug DI errors in tests: 
   - ng test -sm=false
+- Importing RxJS
+  - https://christianliebel.com/2017/07/import-rxjs-correctly/
+  - https://cartant.github.io/rxjs-tslint-rules
