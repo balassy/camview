@@ -15,6 +15,7 @@ export class ConfigService {
   }
 
   private _getEnvValue(keyName: string): string {
+    /* istanbul ignore if */ // Input validation: This private method is not tested directly, so we cannot provide invalid input to test this if branch.
     if (!keyName) {
       throw new Error('Please specify the keyName!');
     }
