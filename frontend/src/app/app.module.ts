@@ -18,6 +18,7 @@ import { ProgressService } from './services/progress/progress.service';
 import { UrlParserService } from './services/url-parser/url-parser.service';
 
 import { AppComponent } from './components/app.component';
+import { CamInfoComponent } from './components/dashboard/cam-info/cam-info.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -26,6 +27,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
+    CamInfoComponent,
     DashboardComponent,
     LoginComponent,
     NavbarComponent,

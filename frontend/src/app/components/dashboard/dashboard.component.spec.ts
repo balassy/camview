@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockComponent } from 'ng2-mock-component';
 import { instance, mock } from 'ts-mockito';
 
 import { DashboardComponent } from './dashboard.component';
@@ -13,7 +14,10 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ],
+      declarations: [
+        DashboardComponent,
+        MockComponent({ selector: 'app-cam-info' }),
+      ],
       providers: [
         { provide: ApiClientService, useFactory: () => instance(mockApiClientService) },
         { provide: ProgressService, useFactory: () => instance(mockProgressService) }
