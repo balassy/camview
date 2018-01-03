@@ -1,0 +1,11 @@
+name: GetDeviceInfoResponse
+contentType: "application/json"
+schema:
+  type: object
+  properties:
+    mac:
+      type: string
+      description: The MAC address of the camera.
+    name:
+      type: string
+      description: The friendly name of the camera.

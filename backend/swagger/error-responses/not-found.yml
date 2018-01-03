@@ -1,0 +1,4 @@
+statusCode: '404'
+description: Returned if the specified camera or item does not exist.
+responseModels:
+  "application/json": ErrorResponse

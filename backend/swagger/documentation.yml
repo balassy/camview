@@ -1,0 +1,21 @@
+api:
+  info:
+    version: '1'
+    title: Camera API
+    description: API to remotely control a Foscam IP camera.
+    contact:
+      name: György Balássy
+      url: https://www.linkedin.com/in/balassy
+    license:
+      name: MIT
+      url: https://raw.githubusercontent.com/balassy/camview/master/LICENSE
+  tags:
+    - name: Camera
+      description: Control the camera.
+    - name: Health
+      description: Health check.
+models:
+  - ${file(./swagger/error-responses/error-response.yml)}
+  - ${file(./src/device/swagger/get-device-info-response.yml)}
+  - ${file(./src/health/swagger/get-health-check.yml)}
+  - ${file(./src/health/swagger/get-health-check-detailed.yml)}
