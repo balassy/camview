@@ -1,3 +1,8 @@
+export interface GetDeviceInfoResult {
+  mac: string;
+  name: string;
+}
+
 export interface GetHealthCheckResult {
   success: boolean;
 }
