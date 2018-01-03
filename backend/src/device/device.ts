@@ -4,9 +4,9 @@ import { ConfigService } from './../services/config/config.service';
 import { DeviceController } from './device.controller';
 import { DeviceService } from './device.service';
 
-const camClientService: CamClientService = new CamClientService();
 const configService: ConfigService = new ConfigService(process.env);
-const service: DeviceService = new DeviceService(camClientService, configService);
+const camClientService: CamClientService = new CamClientService(configService);
+const service: DeviceService = new DeviceService(camClientService);
 const controller: DeviceController = new DeviceController(service);
 
 export const getDeviceInfo: ApiHandler = controller.getDeviceInfo;

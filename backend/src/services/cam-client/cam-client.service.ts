@@ -1,16 +1,17 @@
 import * as rp from 'request-promise-native';
 import * as xml2js from 'xml2js';
+
+import { ConfigService } from '../config/config.service';
 import { ForbiddenResult, NotFoundResult } from './../../../shared/errors';
 import { Connection, GetDeviceInfoResult } from './cam-client.interfaces';
 import { ResultCode } from './result-codes';
-
-// tslint:disable prefer-function-over-method, no-console, no-any (Temporary implementation.)
 
 interface InsecureRequestOptions extends rp.OptionsWithUri {
   insecure: boolean;
 }
 
 export class CamClientService {
+  // tslint:disable-next-line no-any (Can return anything the camera returns.)
   private static _parseXmlResponse(xml: string): Promise<any> {
     function parseNumber(str: string): string | number {
       if (str && !isNaN(+str) && str.toUpperCase().indexOf('E') < 0) {
@@ -31,11 +32,13 @@ export class CamClientService {
         explicitArray: false
       };
 
+      // tslint:disable-next-line no-any (The parseString API does not define the exact type.)
       xml2js.parseString(xml, xmlParserOptions, (err: any, parsed: any) => {
         if (err) {
           reject(new Error('Response XML parsing error: ' + err));
         }
 
+        // tslint:disable-next-line no-any (The parseString API does not define the exact type.)
         const result: any = parsed && parsed.CGI_Result    // tslint:disable-line no-unsafe-any (The result may have a "CGI_Result" property.)
           ? parsed.CGI_Result                              // tslint:disable-line no-unsafe-any (The result may have a "CGI_Result" property.)
           : parsed;
@@ -46,16 +49,23 @@ export class CamClientService {
 
   private _connection: Connection;
 
-  public getDeviceInfo(): Promise<GetDeviceInfoResult> {
-    return this._sendGetRequest<GetDeviceInfoResult>('getDevInfo');
+  public get connection(): Connection {
+    return this._connection;
   }
 
-  public setConnection(connection: Connection): void {
-    if (!connection) {
-      throw new Error('Please specify the connection!');
+  public constructor(configService: ConfigService) {
+    if (!configService) {
+      throw new Error('Please specify the configService!');
     }
 
-    this._connection = connection;
+    this._connection = configService.getConnection();
+    if (!this._connection) {
+      throw new Error('The ConfigService has not returned valid connection parameters!');
+    }
+  }
+
+  public getDeviceInfo(): Promise<GetDeviceInfoResult> {
+    return this._sendGetRequest<GetDeviceInfoResult>('getDevInfo');
   }
 
   private _sendGetRequest<T>(commandName: string): Promise<T> {
@@ -84,7 +94,7 @@ export class CamClientService {
 
     return rp(options)
       .then((xmlResponse: string) => CamClientService._parseXmlResponse(xmlResponse))
-      .then((parsedResponse: any) => {
+      .then((parsedResponse: any) => {    // tslint:disable-line no-any (Can return anything the camera returns.)
         // tslint:disable-next-line no-unsafe-any (Checking the existance of optional property.)
         if (parsedResponse && (parsedResponse.result || +parsedResponse.result === 0)) {
           switch (<number> parsedResponse.result) {   // tslint:disable-line no-unsafe-any (Using optional property.)
@@ -97,7 +107,7 @@ export class CamClientService {
           }
         }
       })
-      .catch((err: any) => {
+      .catch((err: any) => {      // tslint:disable-line no-any (The request-promise-native package does not specify the exact error.)
         // tslint:disable-next-line no-unsafe-any (Checking the existance of optional property.)
         if (err && err.error && (err.error.code === 'ENOTFOUND' || err.error.code === 'ECONNREFUSED' || err.error.code === 'EHOSTUNREACH')) {
           throw new NotFoundResult('CAM_NOT_FOUND', 'Camera not found at the specified host and port.');
