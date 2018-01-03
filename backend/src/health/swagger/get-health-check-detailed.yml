@@ -1,0 +1,26 @@
+name: GetHealthCheckDetailed
+contentType: "application/json"
+schema:
+  type: object
+  properties:
+    config:
+      type: object
+      properties:
+        isHostSet:
+          type: boolean
+          description: Returns true if the host parameter has a configured value.
+        isPasswordSet:
+          type: boolean
+          description: Returns true if the password parameter has a configured value.
+        isPortSet:
+          type: boolean
+          description: Returns true if the port parameter has a configured value.
+        isUserSet:
+          type: boolean
+          description: Returns true if the user parameter has a configured value.
+    success:
+      type: boolean
+      description: Returns true if the health check has found everything all right on the server.
+    requestId:
+      type: string
+      description: Returns the unique identifier of the incoming HTTP request.
