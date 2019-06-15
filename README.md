@@ -1,4 +1,4 @@
-# Camview - This is a work in progress!
+# Camview
 
 The goal of this project is to create a AWS powered, Facebook integrated remote camera viewer browser application in Angular 4.
 
